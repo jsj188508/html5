@@ -1,0 +1,38 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+	<meta charset="utf-8">
+	<title>支持多种格式的音频播放以及暂停按钮，无法做到放大与缩小</title>
+</head>
+<body> 
+<style>
+	#audio1{transition:all 1s;margin-top:15px;width:420px}
+</style>
+<div style="text-align:center;">
+
+	  <button id="playPause">播放/暂停</button> 
+		<br>
+  <audio id="audio1" controls="controls" loop  autoplay muted preload="auto"> 
+									<!-- 显示控制器 controls="controls"
+									使用autoplay，则忽略preload属性
+									loop是循环播放
+									muted=“true”规定音频的音频输出应该被静音。
+									preload="auto"音频在页面加载时进行加载，并预备播放 -->
+  		<source src="movie.ogg" type="audio/ogg" >
+		<source src="song.mp3" type="audio/mp3" />
+    	Your browser does not support HTML5 audio.
+  </audio>
+</div> 
+
+<script type="text/javascript">
+var audio=document.querySelector("#audio1");
+
+document.querySelector('#playPause').onclick=function (){ 
+	console.log(audio.paused); 
+	audio.paused?audio.play():audio.pause(); 
+} 
+
+</script> 
+
+</body> 
+</html>

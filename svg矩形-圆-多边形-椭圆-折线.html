@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>myWebsite</title>
+
+</head>
+<body>
+
+<!--rect定义矩形; x和y 定义位置 ;rx和ry 定义圆角-->
+	<svg >
+	<rect width="300" height="100" x=50px y=100px rx=50% ry=10% style="fill:rgba(0,0,255,0.5);stroke-width:1;stroke:rgba(0,0,0,0.2);display:block;"/>
+	</svg><hr>
+
+ <!--circle 定义圆;cx和cy定义位置；r定义半径-->
+	<svg >
+		<circle cx=50 cy="100" r='100' style="fill:#f0f;stroke:#0ff;stroke-opacity:0.5;fill-opacity:0.1">
+	</svg><hr>
+<!-- polygon \定义多边形(>=3) points="X,Y X2,Y2 X3,Y3" 定义锚点位置及边数-->
+	<svg >
+		<polygon points="220,100 300,210 170,250 220,150"
+			style="fill:#cccccc;
+			stroke:#000000;stroke-width:1"/>
+	</svg><hr>
+<!-- ellipse 定义椭圆  
+	cx 属性定义圆点的 x 坐标
+	cy 属性定义圆点的 y 坐标
+	rx 属性定义水平半径
+	ry 属性定义垂直半径-->
+	<svg>
+		<ellipse cx="240" cy="100" rx="220" ry="30" style="fill:purple"/>
+
+		<ellipse cx="220" cy="70" rx="190" ry="20" style="fill:lime"/>
+
+		<ellipse cx="210" cy="45" rx="170" ry="15" style="fill:yellow"/>
+	</svg><hr>
+
+	<!--line定义直线 x1 属性在 x 轴定义线条的开始
+	y1 属性在 y 轴定义线条的开始
+	x2 属性在 x 轴定义线条的结束
+	y2 属性在 y 轴定义线条的结束 -->
+	<svg>
+		<line x1="0" y1="0" x2="300" y2="300" style="stroke:rgb(99,99,99);stroke-width:2"/>
+	</svg><hr>
+	<!-- polyline \定义折线(>=3) points="X,Y X2,Y2 X3,Y3" 定义锚点位置-->
+	<svg>
+		<polyline points="220,100 300,210 170,250 220,150"
+			style="fill:#cccccc;
+			stroke:#000000;stroke-width:1"/>
+	</svg><hr>
+<!-- path用来定义路径 -->
+	<svg>
+		<path d="M153 334
+			C153 334 151 334 151 334
+			C151 339 153 344 156 344
+			C164 344 171 339 171 334
+			C171 322 164 314 156 314
+			C142 314 131 322 131 334
+			C131 350 142 364 156 364
+			C175 364 191 350 191 334
+			C191 311 175 294 156 294
+			C131 294 111 311 111 334
+			C111 361 131 384 156 384
+			C186 384 211 361 211 334
+			C211 300 186 274 156 274"
+			style="fill:white;stroke:red;stroke-width:2"/>
+	</svg><hr>
+	<!-- 滤镜 -->
+	<svg>
+		<defs>
+		<filter id="Gaussian_Blur">
+		<feGaussianBlur in="SourceGraphic" stdDeviation="20"/>
+		</filter>
+		</defs>
+
+		<ellipse cx="200" cy="150" rx="70" ry="40"
+		style="fill:#ff0000;stroke:#000000;
+		stroke-width:2;filter:url(#Gaussian_Blur)"/>
+	</svg>
+
+<script>
+	svg=document.querySelectorAll('svg')
+	for(var i=0;i<svg.length;i++){
+		console.log(i);
+		svg[i].style.width = '300px';
+		svg[i].style.height = '300px';
+	}
+
+</script>
+</body>
+</html>

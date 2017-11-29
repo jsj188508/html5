@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf8">
+	<style type="text/css">
+	ul{padding:10px;border:1px solid #ddd;width:300px;}
+	li{list-style:none;border-bottom:1px dashed #ccc;}
+	#div1 {width:198px; height:66px;padding:10px;border:1px solid #aaaaaa;}
+	</style>
+
+</head>
+<body>
+	<h1>html5拖放：http://www.w3school.com.cn/html5/html_5_draganddrop.asp</h1>
+
+<ul>
+	<li >1111111</li>
+	<li >222</li>
+	<li >33333</li>
+	<li >444444</li>
+</ul>
+<script type="text/javascript">
+	
+	EMli=document.querySelectorAll('li');
+	for(var i=0;i<EMli.length;i++){
+		EMli[i].setAttribute('draggable','true');//给每个元素添加draggable：true就可以拖动了
+		EMli[i].setAttribute('id','child'+i);	//拖动思路：按照id进行设计拖动
+
+		// 给每个元素添加ondragstart  、ondrop、ondragover事件，并调用相应的事件。
+		EMli[i].ondragstart=function(){drag(event);};//先触发ondragstart事件后调用了一个函数drag(event)，用于指定被拖动的数据
+		EMli[i].ondrop=function(){drop(event)};//  再触发ondrop事件---》阻止被拖动元素的默认行为
+		EMli[i].ondragover=function(){allowDrop(event)};//当元素被拖动释放后触发的事件， 
+	}
+	function drag(ev){ev.dataTransfer.setData("Text",ev.target.id);	} //ev.dataTransfer.setData()方法设置被拖动的数据类型和值
+	
+	function allowDrop(ev){ev.preventDefault();}
+	function drop(ev){
+		ev.preventDefault(); //阻止拖动元素的默认行为
+		var data=ev.dataTransfer.getData("Text");  //获取被拖动的数据
+		console.log(data);
+		
+		elId=ev.target; //获取释放元素
+		console.log(elId);
+
+		elId.before(document.getElementById(data)); //使用before方法将被拖动的元素释放到指定元素的前面。
+		//elId.after(document.getElementById(data)); //使用after方法将被拖动的元素释放到指定元素的后面。
+		}
+	
+</script>
+</body>
+</html>
