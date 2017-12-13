@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>canvas02--fillRect/strokeRect/clearRect.html</title>
+		<style>
+			#myCanvas{
+				box-shadow: 0 0 5px black;
+				margin-top: 50px;
+				margin-left: 50px;
+			}
+			#myCanvas2{
+				box-shadow: 0 0 5px salmon;
+			}
+		</style>
+	</head>
+	<body>
+		<!--宽高只能在属性值设置，样式设置像素值有差别-->
+		<canvas id="myCanvas" width="500" height="500">浏览器版本太低，请更新</canvas>
+		<!--<canvas id="myCanvas2" width="50" height="50">
+		</canvas>-->
+	</body>
+	<script>
+		//获取canvas对象
+		var canvas = document.getElementById("myCanvas").getContext("2d");//上下文:理解：canvas标签内置画笔//目前仅支持2d画板
+		
+		//绘制矩形路径
+		canvas.strokeStyle="#f00"//设置描边色，
+		canvas.strokeRect(10,10,100,200);//canvas.strokeRect(X,Y,width,height)绘制一个矩形框
+		
+		canvas.fillStyle="#f00"//设置填充色，
+		canvas.fillRect(125,10,100,100);//canvas.fillRect(X,Y,width,height)绘制一个填充矩形
+		
+		
+		canvas.clearRect(150,50,40,40); //清除指定区域绘制的图形(使其完全透明)
+		// canvas.clearRect(0,0,canvas.width,canvas.height);////常用:清除整个画布
+
+	</script>
+</html>

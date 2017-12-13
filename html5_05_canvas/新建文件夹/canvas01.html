@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>绘制圆形arc(x,y,R,startAngle,endAngle,anticlockwise)</title>
+		<style>
+			#myCanvas{
+				box-shadow: 0 0 5px black;
+				margin-top: 50px;
+				margin-left: 50px;
+			}
+			#myCanvas2{
+				box-shadow: 0 0 5px salmon;
+			}
+		</style>
+	</head>
+	<body>
+		<!--宽高只能在属性值设置，样式设置像素值有差别-->
+		<canvas id="myCanvas" width="2000" height="800">浏览器版本太低，请更新</canvas>
+		<!--<canvas id="myCanvas2" width="50" height="50">
+		</canvas>-->
+	</body>
+	<script>
+		//获取canvas对象
+		var canvas = document.getElementById("myCanvas").getContext("2d");//上下文:理解：canvas标签内置画笔//目前仅支持2d画板
+	
+		
+		//绘制圆形或者圆弧：arc()
+		//arc(x: Number, y: Number,radius: Number,startAngle: Number, endAngle: Number, anticlockwise: Boolean): none
+		//绘制一个以x,y为圆心，radius为半径，从startAngle弧度开始到endAngle结束，anticlockwise：绘制方向，布尔值，默认false顺时针
+		//canvas.arc(200,200,50,0,Math.PI*2,false);
+		
+		canvas.lineWidth="5"; //设置所有路径的线宽
+		//顺时针绘制圆
+		for(var i=0,x=y=60;i<=20;i++,x+=70){
+			canvas.beginPath();
+			canvas.arc(x,y,30,i,Math.PI,false);
+			canvas.stroke();//绘制
+
+			var r=parseInt(Math.random()*255),
+				g=parseInt(Math.random()*255),
+				b=parseInt(Math.random()*255);
+			canvas.fillStyle = 'rgb('+r+','+g+','+b+')'; //设置填充色
+			canvas.fill(); //填充
+
+		}
+		canvas.moveTo(10,100);
+		canvas.lineTo(2900,100)
+		canvas.stroke();
+
+		//逆时针绘制圆
+		for(var i=0,x=60,y=150;i<=20;i++,x+=90){
+			canvas.beginPath();
+			canvas.arc(x,y,40,i,Math.PI,true);
+			canvas.stroke();//绘制
+
+			var r=parseInt(Math.random()*255),
+				g=parseInt(Math.random()*255),
+				b=parseInt(Math.random()*255);
+			canvas.fillStyle = 'rgb('+r+','+g+','+b+')';
+			canvas.fill(); 
+		}
+		canvas.moveTo(10,200);
+		canvas.lineTo(2900,200)
+		canvas.stroke();
+
+		//逆时针绘制圆
+		for(var i=0,x=endDeg=60,y=250;i<=20;i++,x+=90,endDeg+=60){
+			canvas.beginPath();
+			canvas.arc(x,y,40,i,endDeg,true);
+			canvas.stroke();//绘制
+
+			var r=parseInt(Math.random()*255),
+				g=parseInt(Math.random()*255),
+				b=parseInt(Math.random()*255);
+			canvas.fillStyle = 'rgb('+r+','+g+','+b+')';
+			canvas.fill(); 
+		}
+
+		//总结:绘制的起点位置默认最右边
+		//canvas.arc(200,200,50,0,Math.PI/2,true);
+		//起始位置为90度：默认的右边顺时针走90度为起始位置
+		// canvas.beginPath();
+		// canvas.arc(200,230,50,Math.PI/2,Math.PI,true);
+		// //绘制
+		// canvas.stroke();
+		
+	</script>
+</html>

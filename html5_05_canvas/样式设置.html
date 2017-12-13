@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>canvas画布</title>
+</head>
+<body>
+	<style>
+  #myCanvas{border:1px solid #f00;}
+</style>
+<!-- ①创建画布 -->
+<canvas id="myCanvas" width="1000px" height="1000px"></canvas>
+<!-- ②使用js来控制画布 -->
+<script>
+		//使用getContext创建2d空间对象
+// 封装的一个用于绘制圆角矩形的函数.
+
+function roundedRect(ctx,x,y,width,height,radius){
+  ctx.beginPath();
+  ctx.moveTo(x,y+radius);
+  ctx.lineTo(x,y+height-radius);
+  ctx.quadraticCurveTo(x,y+height,x+radius,y+height);
+  ctx.lineTo(x+width-radius,y+height);
+  ctx.quadraticCurveTo(x+width,y+height,x+width,y+height-radius);
+  ctx.lineTo(x+width,y+radius);
+  ctx.quadraticCurveTo(x+width,y,x+width-radius,y);
+  ctx.lineTo(x+radius,y);
+  ctx.quadraticCurveTo(x,y,x,y+radius);
+  ctx.stroke();
+} 
+</script>
+</body>
+</html>

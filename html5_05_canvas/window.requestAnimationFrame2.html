@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>canvas画布</title>
+</head>
+<body>
+	<style>
+		#myCanvas{border:1px solid #f00;}
+	</style>
+	<!-- ①创建画布 -->
+	<canvas id="canvas" width="1000px" height="1000px"></canvas>
+	<!-- ②使用js来控制画布 -->
+<script>
+window.onload=function(){
+  draw(0);
+}
+
+function draw(i){
+  console.log(i++);
+  window.requestAnimationFrame(draw(0));
+}
+
+
+</script>
+</body>
+</html>

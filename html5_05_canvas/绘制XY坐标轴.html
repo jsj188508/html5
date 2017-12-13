@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p>画布：</p>
+<canvas id="myCanvas" width="1000" height="1000" style="border:1px solid #d3d3d3;background:#ffffff;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+<script>
+var canva=document.querySelector('#myCanvas');
+window.onload=function(){
+
+	if(canva.getContext){
+		var can=canva.getContext('2d'),
+		X0=50,
+		moveX=moveY=5;
+		Y0=50,
+		ln=50,
+		maxX=maxY=yMax=300,
+
+		can.moveTo(X0-moveX,Y0+moveY);
+		can.lineTo(X0,Y0);
+		// 从上向下画 坐标轴，
+		for(var y=Y0;y<maxY+2*Y0;y+=ln,yMax-=ln){
+			if(y==Y0){
+				can.moveTo(X0,y);
+			}else{
+				can.lineTo(X0,y);
+				can.moveTo(X0,y);
+				can.lineTo(X0+10,y);
+
+				can.fillText(yMax,X0-20,y+3);
+
+				can.moveTo(X0,y);
+
+				// console.log(yMax)
+				// console.log('y'+y);
+				if(yMax==0){
+					can.moveTo(X0,maxY+Y0);
+					// can.lineTo(maxX,maxY+Y0);
+					for(var x=X0;x<maxX+X0;x+=ln){
+						can.lineTo(x,maxY+Y0);
+						can.moveTo(x,maxY+Y0-10);
+						can.lineTo(x,maxY+Y0);
+
+						can.fillText(x-X0,x-7,y+20);
+						// console.log('X'+x);
+						// console.log('Y'+y);
+						if(x==maxX){
+							can.lineTo(maxX+X0,maxY+Y0);
+							can.lineTo(maxX+X0-moveX,maxY+Y0+moveY);
+							can.moveTo(maxX+X0,maxY+Y0);
+							can.lineTo(maxX+X0-moveY,maxY+Y0-moveY);
+						}
+					}
+
+				}
+			}	
+		}
+		can.stroke();
+	}else{
+		alert('你的浏览器不支持canvas画布')
+	}
+
+}
+
+</script>
+
+</body>
+</html>

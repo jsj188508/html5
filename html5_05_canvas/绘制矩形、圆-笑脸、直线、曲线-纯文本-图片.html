@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>canvas绘制图形</title>
+</head>
+<body>
+	<h1>教程https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes</h1>
+	<style>
+		#myCanvas{border:1px solid #f00;}
+	</style>
+	<!-- ①创建画布 -->
+	<canvas id="myCanvas" width="1000px" height="800px">
+	</canvas>
+	<!-- ②使用js来控制画布 -->
+	<script>
+		var el=document.querySelector("#myCanvas");
+		//使用getContext创建2d空间对象
+	if(el.getContext){
+	//矩形
+		var canva=canva2=canva3=canva4=el.getContext("2d");
+		// 绘制一个填充矩形
+		canva.fillRect(10,10,200,100);//fillRect(x,y,width,Height)画一个200*100填充的矩形
+		// 绘制一个矩形边框
+		canva.strokeRect(220,10,200,100)
+		//清除指定区域里的内容//不能够清除绘制的路径
+		// canva.clearRect(60,100,200,100);
+		//rect(X,Y,width,height)绘制矩形路径
+		canva.rect(430,10,200,100); 
+	//直线路径
+		//绘制折线路径
+		canva.moveTo(20,80); //第1个点  将笔触移动到指定的坐标x以及y上-----> moveTo(X,Y);
+		canva.lineTo(70,70); //第2个点  绘制一条从当前位置到指定x以及y位置的直线 lineTo(X,Y);
+		canva.lineTo(100,30); //第3个点 lineTo(X,Y);
+		canva.lineTo(150,50); //第4个点 lineTo(X,Y);
+		canva.lineTo(180,20); //第4个点 lineTo(X,Y);
+		// 绘制多边形路径
+		canva.moveTo(240,20); //第1个点  将笔触移动到指定的坐标x以及y上----->moveTo(X,Y);  
+		canva.lineTo(390,50); //第2个点  绘制一条从当前位置到指定x以及y位置的直线 lineTo(X,Y);
+		canva.lineTo(350,80); //第3个点 lineTo(X,Y);
+		canva.lineTo(300,40); //第4个点 lineTo(X,Y);
+		canva.lineTo(280,90); //第4个点 lineTo(X,Y);
+		canva.closePath();
+
+
+		canva.fillStyle="rgb(255,255,32)";//fillStyle  ---->填充色
+		// 填充以上的路径
+		canva.fill();					  // fill() ---->,当调用fill()函数时，所有没有闭合的形状都会自动闭合
+		canva.strokeStyle="red"          //strokeStyle  ----描边色	
+		//描边以上的路径
+		canva.stroke();					 //	stroke()  ----->描边以上的路径
+
+	//绘制一个圆的路径arc(X,Y,R,0,Math.PI*2,false);
+		//
+		canva.beginPath();  // 开始新的路径
+		canva.arc(500,60,40,0,Math.PI*2,true); //arc(X,Y,R,0,Math.PI*2,false)圆的路径
+		canva.moveTo(510,60);
+		canva.arc(500,60,10,0,Math.PI*2,true); //arc(X,Y,R,0,Math.PI*2,false)圆的路径
+		canva.fillStyle='#f0f';
+		canva.fill("evenodd");  //nonzero 填充规则
+		canva.strokeStyle="#0f0";
+		canva.stroke();
+	// 绘制表情
+		// canva.beginPath();
+		canva.moveTo(750,60);	//将笔触移动到指定的坐标x以及y上。    
+		canva.arc(700,60,50,0,Math.PI*2,true); // 绘制圆
+		canva.moveTo(735,60); 
+		canva.arc(700,60,35,0,Math.PI,false);   // 口(顺时针)
+		canva.moveTo(685,60);
+		canva.arc(680,60,5,0,Math.PI*2,true);  // 左眼
+		canva.moveTo(725,60);
+		canva.arc(720,60,5,0,Math.PI*2,true);  // 右眼
+
+		canva.strokeStyle="#FFA500";
+		canva.stroke();
+	//绘制二次贝塞尔曲线路径 //quadraticCurveTo(controyX,controyY,X,Y);
+		canva2.beginPath();
+		canva.moveTo(800,10);		
+		canva.quadraticCurveTo(820,100,780,80); 
+		canva.quadraticCurveTo(810,120,800,120);
+   //绘制三次贝塞尔曲线路径bezierCurveTo(controyX1,controyY1,controyX2,controyY2,X,Y)
+		canva.moveTo(900,20);
+		canva.bezierCurveTo(900,50,950,50,880,50);
+		canva.bezierCurveTo(950,100,930,100,950,100);
+		
+		//描边宽度
+		canva.lineWidth='10';
+		//设定线条与线条间接合处的样式。 https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin
+		canva.lineJoin="round"; // 圆形
+		// canva.lineJoin="bevel"; // 
+		// canva.linejoin="miter";//默认样式
+
+		canva.lineCap="round";//线端样式圆形
+
+		canva.setLineDash([2, 12]); //设置虚线  非负数组
+		canva.lineDashOffset = 2;//偏移量是float精度的数字。 初始值为 0.0。
+		
+
+		canva.strokeStyle="#00f";
+		canva.stroke();
+//渐变	
+		//从右到左 ---->线性渐变填充
+		var grd=canva.createLinearGradient(10,130,175,50); //createLinearGradient(x,y,width,height);  //渐变的位置
+		grd.addColorStop(0,"#f00");		//addColorStop(0~1,rgba) 开始/结束的位置渐变色 
+		grd.addColorStop(0.5,"#0f0");		//addColorStop(0~1,rgba) 开始/结束的位置渐变色 
+		grd.addColorStop(0.5,"#00f");	
+		grd.addColorStop(1,"#00FF00");	
+		canva.fillStyle=grd;           //设置渐变色为填充色
+		canva.fillRect(10,130,175,100);
+		//中心渐变填充
+		var color=canva.createRadialGradient(300, 180, 5, 300, 180, 100); //createRadialGradient(x0, y0, r0, x1, y1, r1);
+		color.addColorStop(0,'red');
+		color.addColorStop(1,'#0f0');
+		canva.fillStyle=color;
+		canva.fillRect(200,130,200,100);
+
+		// 渐变描边
+		var srokeColor=canva.createRadialGradient(460, 180, 20, 460, 180, 100);
+		// var srokeColor=canva.createLinearGradient(410, 130, 300, 100);
+		srokeColor.addColorStop(0,'#00f');
+		srokeColor.addColorStop(1,'#0f0');
+		canva.rect(410, 130, 100, 100);
+		canva.strokeStyle=srokeColor;
+		canva.stroke();
+		canva.fillStyle=srokeColor;
+		canva.fill();
+
+
+
+		//填充图案
+		canva2.beginPath();
+		var img=new Image();
+		img.src="canva_img.png";
+		img.onload=function(){
+			var path=canva2.createPattern(img,"repeat")
+			canva2.fillStyle=path;
+			canva2.fillRect(530,130,100,100);
+
+			canva2.strokeStyle=path;
+			canva2.rect(650,130,100,100);
+			canva2.stroke();
+		}
+
+//绘制文本 
+		//设置阴影
+		canva.shadowOffsetX=2;
+		canva.shadowOffsetY=2;
+		canva.shadowBlurX=2;
+		canva.shadowColor='rgba(0,100,25,0.8)';
+		// 设置大小和字体
+		canva.font="50px Times New Roman";   //font="size 字体"
+		canva.textAlign="left";              //对齐方式
+		canva.textBaseline="botttom";        //基准线 top middle  bottom
+		canva.direction ="inherit";         		 //文本方向 rtl inherit    默认是ltr
+
+		canva.fillText('Hell jsj',10,300,[200]);//fillText(text,x,y,[maxWidth]) 填充文字
+		canva.strokeText('Hell jsj',210,300,[200]); //strokeText(text,x,y,[maxWidth]) 描边文字
+		var text1 = canva.measureText('jsj');
+		console.log(text1.width);//47.2412109375
+
+
+//设置样式
+		// 填充色
+		canva.fillStyle = "orange";
+		canva.fillStyle = "#FFA500";
+		canva.fillStyle = "rgb(255,165,0)";
+		canva.fillStyle = "rgba(255,165,0,0.5)";
+		canva.fill();
+		// 描边色
+		canva.strokeStyle = "orange";
+		canva.strokeStyle = "#FFA500";
+		canva.strokeStyle = "rgb(255,165,0)";
+		canva.strokeStyle = "rgba(255,165,0,0.5)";
+		canva.stroke();
+		//描边宽度
+		canva.lineWidth='10';
+		//设定线条与线条间接合处的样式。 https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin
+		canva.lineJoin="round"; //圆形
+		canva.lineJoin="bevel"; //
+		canva.linejoin="miter";
+		// 设置线条末端样式 https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap
+		canva.lineCap="round";//圆形
+		canva.lineCap="butt"; //末端以方形结束。
+		canva.lineCap="square";//线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域
+
+
+
+		//设置透明度
+		// canva.globalAlpha=0.8;
+
+//绘制图片
+		var img=new Image();
+		img.onload=function(){
+			canva3.drawImage(img,10,350); //drawImage(img, x, y)
+			canva.drawImage(img, 250, 350, 100,100);//drawImage(img, x, y, width, height)  --------->缩放
+			canva2.drawImage(img,42,45,100,50,400,350,200,200);//drawImage(img,sx,sy,swidth,sheight,x,y,width,height); ---->切片
+		};
+		img.src="canva_img.png";
+		
+
+	}else{
+		alert("你的浏览器不支持canvas画布")
+	}	
+	</script>	
+</body>
+</html>

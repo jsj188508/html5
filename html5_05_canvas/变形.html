@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p>画布：</p>
+<canvas id="myCanvas" width="1000" height="1000" style="border:1px solid #d3d3d3;background:#ffffff;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+<script>
+window.onload=function(){	
+	var canva = document.getElementById('myCanvas').getContext('2d');
+	for(var y=10;y<=260;y+=60){
+		for(var x=10;x<y;x+=60){
+			var r=parseInt(Math.random()*255),
+				g=parseInt(Math.random()*255),
+				b=parseInt(Math.random()*255);
+			canva.fillStyle = 'rgb('+r+','+g+','+b+')';
+			
+			canva.fillRect(x,y-60,50,50);
+			canva.save(); 
+		
+		}
+	}
+
+	for(var x=100;x<=400;x+=60){
+		for(var y=160;y<x;y+=60){
+			canva.fillRect(x,y-150,50,50);
+			canva.restore();// 重新加载之前的颜色状态
+
+
+		}
+	}
+
+	for(var x=500;x<=760;x+=60){
+		for(var y=10;y<260;y+=60){
+			var r=parseInt(Math.random()*255),
+				g=parseInt(Math.random()*255),
+				b=parseInt(Math.random()*255);
+			canva.fillStyle = 'rgb('+r+','+g+','+b+')';
+			canva.fillRect(x,y,50,50);
+			canva.save(); // 保存当前状态
+			// canva.restore();// 重新加载之前的颜色状态 不能重复
+		}
+	}
+
+	
+	console.log(Math.random()*(120-100+1)+100); //随机取100到120的数  (数据类型)(最小值+Math.random()*(最大值-最小值+1)) 
+}
+
+</script>
+
+</body>
+</html>
