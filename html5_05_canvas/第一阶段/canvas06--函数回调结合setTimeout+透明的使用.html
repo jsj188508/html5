@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>set_attribute</title>
+</head>
+<body>
+	<style>
+		canvas{border:1px solid #ddd;}
+	</style>
+	<canvas width="800" height="800"></canvas>
+	<script>
+		var el=document.querySelector('canvas');
+		el.getContext?canvas=el.getContext('2d'):alert('你的浏览器不支持canvas画布');
+		//颜色
+		// canvas.fillStyle = "red";
+		// canvas.fillStyle = "#003300";
+		// canvas.fillStyle = "rgb(255,0,0)";
+		// canvas.fillStyle = "rgba(255,0,0,0.5)"; 
+		//全局设置透明度	
+		canvas.globalAlpha = "0.9";		
+
+		
+		var i=offset =0;;
+		function drowFun(){
+			canvas.clearRect(10,10,300,300);
+			canvas.fillStyle = "orange";
+			canvas.fillRect(50,50,100,100);
+			canvas.fillStyle = "#ADFF2F";
+			canvas.fillRect(150,50,100,100);
+			canvas.fillStyle = "cornflowerblue";
+			canvas.fillRect(50,150,100,100);
+			canvas.fillStyle = "red";
+			canvas.fillRect(150,150,100,100);
+			
+			i>10?i=0:i+=2;
+			canvas.fillStyle="rgba(255,255,255,"+i/30+")";//rgba()
+			canvas.arc(150,150,5+i*10,0,Math.PI*2,false);
+			canvas.fill();
+			canvas.beginPath();
+
+			// 绘制蚂蚁线矩形
+			offset=i;
+			canvas.clearRect(300,100,el.width,el.height);
+			canvas.strokeRect(310,110,100,100);
+			//设置起始位置偏移
+			canvas.lineDashOffset = offset;
+			//设置虚线框
+			//[虚线点大小，间隔大小]
+			canvas.setLineDash([10,5]);
+		}
+		function TimeFun(){
+			drowFun();
+			setTimeout(TimeFun,100)
+		}
+		TimeFun();
+
+
+		
+		//一旦设置了strokeStyle、fillStyle等属性，那么这个属性变为下面所有绘制的默认属性，需要重新更改值
+	
+		
+		// function draw(){
+		// 	//清除画布
+		// 	canvas.clearRect(300,300,el.width,el.height);
+
+		// 	offset >=10?offset = 0:offset+=2;
+		// 	//设置虚线框
+		// 	//[虚线点大小，间隔大小]
+		// 	canvas.setLineDash([10,5]);
+
+		// 	//设置起始位置偏移
+		// 	canvas.lineDashOffset = offset;
+		// 	canvas.strokeRect(310,310,100,100);
+		// }
+		// function match(){			
+		// 	draw();
+		// 	setTimeout(match,50);	//在函数内回调
+		// }
+		// match();
+
+		
+	</script>
+</body>
+</html>
