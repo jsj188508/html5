@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>bezierCurveTo</title>
+</head>
+<body>
+	<style>
+		canvas{border:1px solid #ddd;}
+	</style>
+	<canvas width="800" height="800"></canvas>
+	<script>
+		var el=document.querySelector('canvas');
+
+		el.getContext?canvas=el.getContext('2d'):alert("建议您使用chrome浏览器");
+
+		canvas.lineWidth='10';
+		//绘制二次贝塞尔曲线路径 //quadraticCurveTo(controyX,controyY,X,Y);
+		// 注意：绘制二次贝塞尔曲线时要连续调用两次quadraticCurveTo()方法
+		canvas.quadraticCurveTo(50,30,200,80);
+		canvas.quadraticCurveTo(300,10,500,100); 
+		canvas.strokeStyle="#f00";
+		canvas.stroke();
+   		//绘制三次贝塞尔曲线路径bezierCurveTo(controyX1,controyY1,controyX2,controyY2,X,Y)
+		// 
+		canvas.beginPath();
+		canvas.bezierCurveTo(20,200,140,50,100,300,25,150,)
+		canvas.strokeStyle="#f00";
+		canvas.stroke();
+	</script>
+
+</body>
+</html>

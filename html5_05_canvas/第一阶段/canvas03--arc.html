@@ -21,10 +21,16 @@
 		</canvas>-->
 	</body>
 	<script>
+		// 设置随机填充色或描边色
+		function randomColor(colorType){
+			var r=parseInt(Math.random()*255),
+				g=parseInt(Math.random()*255),
+				b=parseInt(Math.random()*255);
+			canvas.fillStyle = 'rgb('+r+','+g+','+b+')'; //设置填充色
+			colorType=="fill"?(canvas.fillStyle = 'rgb('+r+','+g+','+b+')',canvas.fill()):(canvas.strokeStyle = 'rgb('+r+','+g+','+b+')',canvas.stroke()); //填充
+		}
 		//获取canvas对象
 		var canvas = document.getElementById("myCanvas").getContext("2d");//上下文:理解：canvas标签内置画笔//目前仅支持2d画板
-	
-		
 		//绘制圆形或者圆弧：arc()
 		//arc(x: Number, y: Number,radius: Number,startAngle: Number, endAngle: Number, anticlockwise: Boolean): none
 		//绘制一个以x,y为圆心，radius为半径，从startAngle弧度开始到endAngle结束，anticlockwise：绘制方向，布尔值，默认false顺时针
@@ -35,50 +41,59 @@
 		for(var i=0,x=y=60;i<=20;i++,x+=70){
 			canvas.beginPath();
 			canvas.arc(x,y,30,i,Math.PI,false);
-			canvas.stroke();//绘制
+			// canvas.stroke();//绘制
+			randomColor('stroke');
+			randomColor('fill');
 
-			var r=parseInt(Math.random()*255),
-				g=parseInt(Math.random()*255),
-				b=parseInt(Math.random()*255);
-			canvas.fillStyle = 'rgb('+r+','+g+','+b+')'; //设置填充色
-			canvas.fill(); //填充
-
+	
 		}
 		canvas.moveTo(10,100);
 		canvas.lineTo(2900,100)
-		canvas.stroke();
+		randomColor('stroke');//绘制线
+
 
 		//逆时针绘制圆
 		for(var i=0,x=60,y=150;i<=20;i++,x+=90){
 			canvas.beginPath();
 			canvas.arc(x,y,40,i,Math.PI,true);
-			canvas.stroke();//绘制
-
-			var r=parseInt(Math.random()*255),
-				g=parseInt(Math.random()*255),
-				b=parseInt(Math.random()*255);
-			canvas.fillStyle = 'rgb('+r+','+g+','+b+')';
-			canvas.fill(); 
+			// canvas.stroke();//绘制
+			randomColor('stroke');
+			// randomColor('fill');
 		}
 		canvas.moveTo(10,200);
 		canvas.lineTo(2900,200)
-		canvas.stroke();
+		randomColor('stroke');//绘制线
+
 
 		//逆时针绘制圆
 		for(var i=0,x=endDeg=60,y=250;i<=20;i++,x+=90,endDeg+=60){
 			canvas.beginPath();
 			canvas.arc(x,y,40,i,endDeg,true);
-			canvas.stroke();//绘制
-
-			var r=parseInt(Math.random()*255),
-				g=parseInt(Math.random()*255),
-				b=parseInt(Math.random()*255);
-			canvas.fillStyle = 'rgb('+r+','+g+','+b+')';
-			canvas.fill(); 
+			// canvas.stroke();//绘制
+			// randomColor('stroke');
+			randomColor('fill');
 		}
 
-		//总结:绘制的起点位置默认最右边
-		//canvas.arc(200,200,50,0,Math.PI/2,true);
+		canvas.beginPath();
+		// canvas.arc(500,500,200,0,Math.PI/2,false);//绘制圆弧
+		canvas.arc(550,500,100,0,Math.PI*2,false);//绘制圆
+		canvas.moveTo(520,500); //canvas.moveTo(X+R,Y);  
+		canvas.arc(500,500,20,0,Math.PI*2,false);
+		canvas.moveTo(620,500);
+		canvas.arc(600,500,20,0,Math.PI*2,false);
+
+		canvas.moveTo(600,530); //canvas.moveTo(X+R,Y); 
+		canvas.arc(550,530,50,0,Math.PI,false);
+
+		randomColor('stroke');
+
+
+
+
+
+
+		//总结:绘制的起点位置默认是左上角
+		//canvas.arc(200,200,50,0,Math.PI*2,true);
 		//起始位置为90度：默认的右边顺时针走90度为起始位置
 		// canvas.beginPath();
 		// canvas.arc(200,230,50,Math.PI/2,Math.PI,true);

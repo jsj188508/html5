@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<style>
+		canvas{border:1px solid #ddd;}
+	</style>
+	<canvas width="800" height="800"></canvas>
+	<script>
+		var el=document.querySelector('canvas');
+		el.getContext?canvas=el.getContext('2d'):alert('你的浏览器不支持canvas画布');
+
+
+		canvas.font="50px 黑体";
+	//文本水平对齐
+		//start:文本指定的位置开始
+		//end:文本指定的位置结束
+		//center:文本的中心被放置在指定的位置
+		canvas.textAlign = "start";
+
+	//文本垂直对齐
+		//top 文本基线是em 方框的顶端
+		//bottom
+		//middle
+		canvas.textBaseline = "bottom";
+	//设置阴影
+		canvas.shadowOffsetX=0;
+		canvas.shadowOffsetY=5;
+		canvas.shadowBlurX=2;
+		canvas.shadowColor='rgba(0,100,25,0.8)';
+	// 文本测量
+		var w = canvas.measureText("World").width;
+		console.log(w);
+
+	// 渐变区域
+
+		var linear=canvas.createLinearGradient(20,80-50,20+w,80);
+		linear.addColorStop(0,"red");
+		linear.addColorStop(0.5,"#ff0");
+		linear.addColorStop(1,"rgba(255,200,100,0.8)");
+
+		canvas.fillStyle=linear;
+		canvas.strokeStyle=linear;
+
+		canvas.fillText("绘制文字",20,80);
+		canvas.strokeText("Hello World",250,80);
+
+		canvas.fillRect(80,0,1,500);
+		canvas.fillRect(0,80,600,1);
+
+		canvas.strokeRect(20,80-50,20+w,50);
+	</script>
+</body>
+</html>
