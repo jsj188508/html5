@@ -22,6 +22,7 @@
 		
 		var i=offset =0;;
 		function drowFun(){
+			//绘制背景矩形
 			canvas.clearRect(10,10,300,300);
 			canvas.fillStyle = "orange";
 			canvas.fillRect(50,50,100,100);
@@ -31,14 +32,14 @@
 			canvas.fillRect(50,150,100,100);
 			canvas.fillStyle = "red";
 			canvas.fillRect(150,150,100,100);
-			
+			//绘制动态圆 			
 			i>10?i=0:i+=2;
 			canvas.fillStyle="rgba(255,255,255,"+i/30+")";//rgba()
 			canvas.arc(150,150,5+i*10,0,Math.PI*2,false);
 			canvas.fill();
 			canvas.beginPath();
 
-			// 绘制蚂蚁线矩形
+			// 绘制动态蚂蚁线
 			offset=i;
 			canvas.clearRect(300,100,el.width,el.height);
 			canvas.strokeRect(310,110,100,100);
@@ -54,29 +55,10 @@
 		}
 		TimeFun();
 
-
-		
-		//一旦设置了strokeStyle、fillStyle等属性，那么这个属性变为下面所有绘制的默认属性，需要重新更改值
+	
+		//注意：一旦设置了strokeStyle、fillStyle等属性，那么这个属性变为下面所有绘制的默认属性，需要重新更改值
 	
 		
-		// function draw(){
-		// 	//清除画布
-		// 	canvas.clearRect(300,300,el.width,el.height);
-
-		// 	offset >=10?offset = 0:offset+=2;
-		// 	//设置虚线框
-		// 	//[虚线点大小，间隔大小]
-		// 	canvas.setLineDash([10,5]);
-
-		// 	//设置起始位置偏移
-		// 	canvas.lineDashOffset = offset;
-		// 	canvas.strokeRect(310,310,100,100);
-		// }
-		// function match(){			
-		// 	draw();
-		// 	setTimeout(match,50);	//在函数内回调
-		// }
-		// match();
 
 		
 	</script>
