@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>时钟</title>
+</head>
+<body>
+	<style>
+		canvas{border:1px solid #ddd;}
+	</style>
+	<canvas width="500" height="500"></canvas>
+	<script>
+		var el=document.querySelector('canvas');
+		el.getContext?canvas=el.getContext('2d'):alert('浏览器不支持canvas');
+		var Cx=el.width/2,Cy=el.height/2;
+
+		canvas.save();
+		canvas.translate(Cx,Cy);
+		canvas.lineWidth=5;
+		canvas.arc(0,0,180,0,Math.PI*2,false);
+		canvas.stroke();
+		
+		drawDial();
+
+		canvas.restore();
+		
+		function drawDial(){
+			var angle = 0;
+			for(var i = 0; i < 60; i++){
+				canvas.save();
+				//旋转
+				canvas.rotate(angle);
+				//开始绘制刻度
+				canvas.beginPath();
+				canvas.moveTo(189,0);
+				canvas.lineTo(199,0)
+				canvas.strokeStyle = "silver";
+				canvas.lineWidth = 4;
+				canvas.stroke();
+				canvas.restore();
+				//角度累加：转为弧度
+				angle += Math.PI/180*6;
+			}
+			
+			var angle = 0;
+			for(var i = 0; i < 12; i++){
+				canvas.save();
+				//旋转
+				canvas.rotate(angle);
+				//开始绘制刻度
+				canvas.beginPath();
+				canvas.moveTo(179,0);
+				canvas.lineTo(199,0)
+				canvas.strokeStyle = "black";
+				canvas.lineWidth = 8;
+				canvas.stroke();
+				canvas.restore();
+				//角度累加：转为弧度
+				angle += (Math.PI/180)*30;
+			}
+		}
+
+	</script>
+</body>
+</html>

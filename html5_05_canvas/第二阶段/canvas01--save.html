@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>save保存当前状态</title>
+</head>
+<body>
+	<style>
+		canvas{border:1px solid #ddd;}
+	</style>
+	<canvas width="1000" height="1000"></canvas>
+	<script>
+		var el=document.querySelector("canvas");
+		el.getContext?canvas=el.getContext('2d'):alert('你的浏览器不支持canvas绘图');
+		//save():保存canvas的上下文当前的状态，当调用save(),入栈保存当前状态
+			//入栈保存的属性：fillStyle,lineWidth,globleAlpha,lineCap,shadowColor
+		
+		//restore():取出栈中保存的状态，每次调用restore()后，就把上一次保存的状态被从栈中取出，然后上一次的所有设置就被从栈中删除
+		canvas.fillStyle="#f00";
+		canvas.fillRect(10,10,100,100);
+		canvas.save(); //保存当前状态
+		
+		//设置新的样式
+		canvas.fillStyle="#00f";
+		canvas.globalAlpha=0.2;
+		canvas.fillRect(130,10,100,100);
+		// canvas.save(); //保存当前状态
+		//如果接着写，默认样式是最近一次的设置
+	
+		canvas.fillRect(240,10,100,100);
+
+		canvas.lineWidth="20";
+		canvas.strokeRect(360,10,100,100);
+
+		canvas.lineCap="round";
+		canvas.moveTo(380,80);
+		canvas.lineTo(440,80);
+		canvas.stroke();
+
+
+
+		canvas.restore();//验证：每次调用restore()后，就把上一次保存的状态被从栈中取出，然后上一次的所有设置就被从栈中删除
+		canvas.fillRect(480,10,100,100);
+		canvas.strokeRect(600,10,100,100)
+
+	</script>
+</body>
+</html>

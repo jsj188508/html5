@@ -1,0 +1,53 @@
+<!Doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<style>
+			canvas{border:1px solid #ddd;}
+		</style>
+		<canvas width="500" height="500"></canvas>
+		<script>
+			var el=document.querySelector('canvas')
+			el.getContext?canvas=el.getContext('2d'):alert('你的浏览器不支持canvas绘图');
+			
+			canvas.fillStyle="#f0f";
+			canvas.fillRect(0,0,100,100);
+		//translate()更改原点的位置,影响restore之前绘制的图形(但是：在使用translate之前必须使用save保存之前的状态)
+			//保存一下最初的状态
+			canvas.save();
+			// 先更改原点位置
+			canvas.translate(20,20);
+			//再绘制 
+			canvas.fillStyle="#f00";
+			canvas.fillRect(0,0,100,100);
+			//恢复移动之前的状态
+			canvas.restore();
+
+		//rotate()旋转:以原点为中心，旋转canvas画布，方向：顺时针旋转，单位是弧度值，如果要改变旋转的中心点，需要结合translate更改原点位置
+			//保存当前状态 
+			canvas.save();
+			// 先更改原点位置
+			canvas.translate(250,250);
+			// 再进行旋转操作
+			canvas.rotate(Math.PI/4); //旋转的是当前：rotate之后和restore之前所有的绘画
+			// 最后行绘制操作
+			canvas.fillRect(0,0,100,100);
+			//恢复移动之前的状态
+			canvas.restore();
+
+		//scale()可以增大或者减小画布的像素值，值给2：对应轴上像素被放大了2倍
+			//保存当前状态 
+			canvas.save();
+			// 先缩放像素
+			canvas.scale(2,2);
+			// 在进行绘制
+			canvas.fillStyle="#f99";
+			canvas.fillRect(150,10,50,50);
+			//恢复移动之前的状态
+			canvas.restore();
+		</script>
+	</body>
+</html>
