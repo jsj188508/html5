@@ -18,46 +18,82 @@
 		canvas.translate(Cx,Cy);
 		canvas.lineWidth=5;
 		canvas.arc(0,0,180,0,Math.PI*2,false);
+		canvas.strokeStyle="#f00";
 		canvas.stroke();
-		
-		drawDial();
 
+		fun();//绘制数字和刻度
+		getTime()//时间
 		canvas.restore();
-		
-		function drawDial(){
-			var angle = 0;
-			for(var i = 0; i < 60; i++){
-				canvas.save();
-				//旋转
-				canvas.rotate(angle);
-				//开始绘制刻度
+		function fun(){
+			var angle=angleMin=0;
+			for(var i=1;i<=12;i++){
 				canvas.beginPath();
-				canvas.moveTo(189,0);
-				canvas.lineTo(199,0)
-				canvas.strokeStyle = "silver";
-				canvas.lineWidth = 4;
+				angle+=Math.PI/180*30;
+				// 绘制时针刻度
+				canvas.save();
+				canvas.rotate(angle);
+				canvas.moveTo(162,0);
+				canvas.lineTo(180,0);
+				canvas.lineWidth="8";
+				canvas.strokeStyle="#00f";
 				canvas.stroke();
 				canvas.restore();
-				//角度累加：转为弧度
-				angle += Math.PI/180*6;
+				// 绘制数字
+				canvas.save();
+				canvas.rotate(angle);
+				canvas.translate(-6,-150);
+				//把文字转回垂直显示
+				canvas.rotate(-angle);
+				canvas.font="20px 黑体"
+				canvas.textAline="center";
+				canvas.textBaseline="middle";
+				canvas.fillText(i,0,0);
+				canvas.restore();
 			}
+			// 绘制分针刻度
+			for(var n=1;n<120;n++){
+				angleMin+=Math.PI/180*3;
+				canvas.save();
+				canvas.lineWidth="4"
+				canvas.rotate(angleMin);
+				canvas.moveTo(170,0)
+				canvas.lineTo(180,0)
+				canvas.strokeStyle="#666";
+				canvas.stroke();
+				canvas.restore();
+				// console.log(n);
+			}
+		}
+		function getTime(){
+			var time=new Date(),
+			hour=time.getHours()%12,
+			min=time.getMinutes(),
+			s=time.getSeconds();
+			//时分秒
+			var hourAngle =hour*Math.PI/180*30;
+			var minAngle =min*Math.PI/180*60;
+			var sAngle =s*Math.PI/180*6;
+			// document.write(s+"/"+min+"/"+hour+"/"+sAngle);
+
+			drawNeedle(s,sAngle,130,4);
+			drawNeedle(min,minAngle,100,8);
+			drawNeedle(hour,hourAngle,60,10);
 			
-			var angle = 0;
-			for(var i = 0; i < 12; i++){
-				canvas.save();
-				//旋转
-				canvas.rotate(angle);
-				//开始绘制刻度
-				canvas.beginPath();
-				canvas.moveTo(179,0);
-				canvas.lineTo(199,0)
-				canvas.strokeStyle = "black";
-				canvas.lineWidth = 8;
-				canvas.stroke();
-				canvas.restore();
-				//角度累加：转为弧度
-				angle += (Math.PI/180)*30;
-			}
+			setTimeout(getTime,1000);
+
+
+		}
+		function drawNeedle(num,degs,w,h){
+			canvas.save();
+			canvas.beginPath();
+			// canvas.rotate(-Math.PI/2);
+			canvas.rotate(degs);
+			canvas.moveTo(0,0);
+			canvas.lineTo(w,0);
+			canvas.lineWidth=h;
+			canvas.lineCap="round";	
+			canvas.stroke();
+			canvas.restore();
 		}
 
 	</script>
