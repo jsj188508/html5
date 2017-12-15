@@ -24,13 +24,12 @@
 	</body>
 	<script>
 		//获取canvas对象b
-		var canvas = document.getElementById("myCanvas");
+		var el = document.getElementById("myCanvas");
 		//上下文:理解：canvas标签内置画笔
-		var ctx = canvas.getContext("2d");//目前仅支持2d画板
+		var ctx = el.getContext("2d");//目前仅支持2d画板
 		
+
 		//线段方法
-		
-		
 		ctx.beginPath();//1.新建一条路径
 		ctx.moveTo(50,50);//2.设置起点,理解：移动画笔的位置 ctx.moveTo(X,Y)
 		ctx.lineTo(100,100);	//3.设置另一个点坐标  ctx.lineTo(X,Y)
@@ -39,9 +38,15 @@
 		
 		ctx.closePath();//4.0闭合路径（不是必须的方法）:终点和起点关闭。
 
+		//设定线条与线条间接合处的样式。 https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin
+		ctx.lineJoin="round"; // 圆形
+		// canva.lineJoin="bevel"; // 
+		// canva.linejoin="miter";//默认样式
+
+		ctx.lineCap="round";//线端样式圆形
 		
 		ctx.strokeStyle="#00f"//4.1设置描边色
-		ctx.lineWidth="10";//4.3设置线宽 一定要在ctx.stroke()之前
+		ctx.lineWidth="20";//4.3设置线宽 一定要在ctx.stroke()之前
 		ctx.stroke(); // 4.4绘制,
 
 		ctx.fillStyle="#f00"//5.0设置填充色，

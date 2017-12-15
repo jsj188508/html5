@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>new Image+drawImage+createPattern</title>
+</head>
+<body>
+	<style>
+		canvas{border:1px solid #ddd;}
+	</style>
+	<canvas width="1200" height="1200"></canvas>
+	<script>
+		var el=document.querySelector('canvas');
+		el.getContext?canvas=el.getContext('2d'):alert('你的浏览器不支持canvas画布');
+		var img=new Image();
+		img.src="../canva_img.png";
+
+		img.onload=function(){
+			canvas.drawImage(img,10,10) //drawImage(img, x,y)
+			canvas.drawImage(img,230,10,100,100) //drawImage(img,x,y,width,height) --------->缩放;
+			canvas.drawImage(img,0,0,200,200,330,10,200,200);
+						  //(img,sx,sy,swidth,sheight,x,y,width,height) --------->切片;
+
+
+			// 也可以使用图片填充矩形形状
+			var path=canvas.createPattern(img,"repeat")
+
+			canvas.fillStyle=path;
+			canvas.fillRect(550,10,200,100);
+			// canvas.strokeStyle='#f00';
+			// canvas.stroke();
+
+			
+			// 也可以使用图片描边矩形路径
+			canvas.lineWidth="20";
+			canvas.rect(770,10,200,100);
+			canvas.strokeStyle=path;
+			canvas.stroke();
+			// canvas.fill()//可以将图片填充矩形路径
+		}
+		
+
+
+	</script>
+</body>
+</html>

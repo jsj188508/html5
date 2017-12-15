@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>set_attribute</title>
+</head>
+<body>
+	<style>
+		canvas{border:1px solid #ddd;}
+	</style>
+	<canvas width="800" height="800"></canvas>
+	<script>
+		var el=document.querySelector('canvas');
+		el.getContext?canvas=el.getContext('2d'):alert('你的浏览器不支持canvas画布');
+	//颜色
+		// canvas.fillStyle = "red";
+		// canvas.fillStyle = "#003300";
+		// canvas.fillStyle = "rgb(255,0,0)";
+		// canvas.fillStyle = "rgba(255,0,0,0.5)"; 
+	// 渐变色
+		//线性渐变区域 createLinearGradient(x,y,width,height);
+		var linear =canvas.createLinearGradient(10,10,400,100);
+			// 设置渐变色
+			linear.addColorStop(0,"#f00");
+			linear.addColorStop(0.5,"#00f");
+			linear.addColorStop(1,"#0f0");
+
+		//中心渐变区域 	 createRadialGradient(x0=X1,y0=y1,minR,x1=x0,y1=y0,maxR);
+		var radial =canvas.createRadialGradient(200,60,10,200,60,200);
+			// 设置渐变色
+			radial.addColorStop(0,"#f00");
+			radial.addColorStop(0.5,"#00f");
+			radial.addColorStop(1,"#0f0");
+		//使用渐变色
+		canvas.fillStyle=radial;
+		canvas.strokeStyle=linear;
+		canvas.lineWidth="10"
+		canvas.rect(10,10,400,100);
+		canvas.fill();
+		canvas.stroke();
+
+
+		//全局设置透明度	
+		// canvas.globalAlpha = "0.9";		
+
+		
+		var i=offset =0;;
+		function drowFun(){
+			// 绘制背景
+			canvas.clearRect(10,210,300,300);
+			canvas.fillStyle = "orange";
+			canvas.fillRect(50,150,100,100);
+			canvas.fillStyle = "#ADFF2F";
+			canvas.fillRect(150,150,100,100);
+			canvas.fillStyle = "cornflowerblue";
+			canvas.fillRect(50,250,100,100);
+			canvas.fillStyle = "red";
+			canvas.fillRect(150,250,100,100);
+			// 绘制动态圆
+			i>10?i=0:i+=2;
+			var r=parseInt(Math.random()*255);
+			var g=parseInt(Math.random()*255);
+			var b=parseInt(Math.random()*255);
+			var a=parseInt(Math.random()*10)/10;
+			console.log(r+","+g+","+b);	
+			// canvas.fillStyle="rgba("+r+","+g+","+b+","+i/20+")";//rgba()
+			canvas.fillStyle="rgba("+r+","+g+","+b+","+a+")";//rgba()
+			canvas.arc(150,250,i*8+2,0,Math.PI*2,false);
+			canvas.fill();
+			canvas.beginPath();
+
+
+			// 绘制蚂蚁线矩形
+			offset=i;
+			canvas.clearRect(300,150,el.width,el.height);
+			canvas.strokeRect(310,140,100,100);
+			//设置起始位置偏移
+			canvas.lineDashOffset = offset;
+			//设置虚线框
+			//[虚线点大小，间隔大小]
+			canvas.setLineDash([10,5]);
+		}
+		function TimeFun(){
+			drowFun();
+			setTimeout(TimeFun,100)
+		}
+		TimeFun();
+
+
+		
+		//注意：一旦设置了strokeStyle、fillStyle等属性，那么这个属性变为下面所有绘制的默认属性，需要重新更改值
+	
+	</script>
+</body>
+</html>

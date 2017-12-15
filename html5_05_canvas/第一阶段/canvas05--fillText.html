@@ -33,23 +33,22 @@
 	// 文本测量
 		var w = canvas.measureText("World").width;
 		console.log(w);
-
-	// 渐变区域
-
-		var linear=canvas.createLinearGradient(20,80-50,20+w,80);
+	//渐变色 
+		var linear=canvas.createLinearGradient(20,80-50,20+w,80);// 渐变区域
 		linear.addColorStop(0,"red");
 		linear.addColorStop(0.5,"#ff0");
 		linear.addColorStop(1,"rgba(255,200,100,0.8)");
 
 		canvas.fillStyle=linear;
 		canvas.strokeStyle=linear;
-
+	// 绘制文字
 		canvas.fillText("绘制文字",20,80);
 		canvas.strokeText("Hello World",250,80);
-
+	
+	//坐标 
 		canvas.fillRect(80,0,1,500);
 		canvas.fillRect(0,80,600,1);
-
+	//查看渐变区域 
 		canvas.strokeRect(20,80-50,20+w,50);
 	</script>
 </body>
