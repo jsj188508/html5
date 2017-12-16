@@ -20,10 +20,9 @@
 		canvas.arc(0,0,180,0,Math.PI*2,false);
 		canvas.strokeStyle="#f00";
 		canvas.stroke();
-
 		fun();//绘制数字和刻度
-		getTime()//时间
 		canvas.restore();
+		getTime()//时分秒
 		function fun(){
 			var angle=angleMin=0;
 			for(var i=1;i<=12;i++){
@@ -34,7 +33,7 @@
 				canvas.rotate(angle);
 				canvas.moveTo(162,0);
 				canvas.lineTo(180,0);
-				canvas.lineWidth="8";
+				canvas.lineWidth="4";
 				canvas.strokeStyle="#00f";
 				canvas.stroke();
 				canvas.restore();
@@ -54,7 +53,7 @@
 			for(var n=1;n<120;n++){
 				angleMin+=Math.PI/180*3;
 				canvas.save();
-				canvas.lineWidth="4"
+				canvas.lineWidth="2"
 				canvas.rotate(angleMin);
 				canvas.moveTo(170,0)
 				canvas.lineTo(180,0)
@@ -64,38 +63,46 @@
 				// console.log(n);
 			}
 		}
-		function getTime(){
+
+		function getTime(){//时分秒
 			var time=new Date(),
 			hour=time.getHours()%12,
 			min=time.getMinutes(),
 			s=time.getSeconds();
-			//时分秒
-			var hourAngle =hour*Math.PI/180*30;
-			var minAngle =min*Math.PI/180*60;
+			//每秒钟6度
 			var sAngle =s*Math.PI/180*6;
-			// document.write(s+"/"+min+"/"+hour+"/"+sAngle);
+			//1分钟 == 60秒 == 6度  每秒0.1度
+			var minAngle =min*Math.PI/180*6+sAngle/60;
+			//1小时 == 60分 == 3600秒 == 30度  一秒钟1/120度
+			var hourAngle =hour*Math.PI/180*30+minAngle/15+sAngle/60;
 
-			drawNeedle(s,sAngle,130,4);
-			drawNeedle(min,minAngle,100,8);
-			drawNeedle(hour,hourAngle,60,10);
-			
-			setTimeout(getTime,1000);
+			// console.log(s+"/"+min+"/"+hour);
+			drawNeedle(hour,hourAngle,60,6,'#ff0',-10);
+			drawNeedle(min,minAngle,100,4,'#00f',-20);
+			drawNeedle(s,sAngle,125,2,'#f00',-22);
 
-
+			setTimeout(getTime,1000);//定时器回调
 		}
-		function drawNeedle(num,degs,w,h){
-			canvas.save();
+		//绘制时分秒
+		function drawNeedle(num,degs,w,h,color,clearH){
 			canvas.beginPath();
-			// canvas.rotate(-Math.PI/2);
-			canvas.rotate(degs);
+			canvas.save();
+			canvas.translate(Cx,Cy);
+
+			// console.log()
+			canvas.rotate(-Math.PI/2);//调整角度	
+			canvas.rotate(degs);	
+			canvas.clearRect(0,0,w+5,clearH);
+			// canvas.clearRect(0,0,el.width,el.height);
 			canvas.moveTo(0,0);
 			canvas.lineTo(w,0);
 			canvas.lineWidth=h;
 			canvas.lineCap="round";	
+			canvas.strokeStyle=color;
 			canvas.stroke();
 			canvas.restore();
 		}
-
+	// setInterval(getTime,1000);
 	</script>
 </body>
 </html>
