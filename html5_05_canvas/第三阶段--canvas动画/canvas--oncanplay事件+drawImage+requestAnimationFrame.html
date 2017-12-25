@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>canvas动画</title>
+</head>
+<body>
+	<style>
+		canvas{border:1px solid #666;}
+	</style>
+	<canvas width="500" height="500"></canvas>
+	<video width="500" height="500" id="video">
+		<source src="../images/oxford-10秒.mp4" type="video/mp4">
+		<source src="../images/movie.ogg" type="ogg/mp4">
+	</video>
+	<script>
+		var el=document.querySelector('canvas'),canvas;
+		el.getContext?canvas=el.getContext('2d'):alert('你的浏览器不支持canvas绘图');
+
+		var video=document.querySelector('#video');
+		// 在视频(video)准备开始播放时执行js代码：
+		video.oncanplay=function(){
+			video.play();
+			function canvasAnimation(){
+				canvas.drawImage(video,0,0,500,500);
+				//延时定时器功能类似，但是没有延迟
+				// requestAnimationFrame：可以使动画绘制和浏览器自身绘制频率保持一致
+				window.requestAnimationFrame(canvasAnimation)
+			}
+			canvasAnimation();
+		}
+	</script>		
+</body>
+</html>

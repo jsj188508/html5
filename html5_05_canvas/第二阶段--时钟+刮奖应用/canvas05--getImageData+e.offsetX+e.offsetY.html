@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>通过 getImageData() 复制画布上指定矩形的像素数据，然后通过 putImageData() 将图像数据放回画布</title>
+	</head>
+	<body>
+		<style>
+			canvas{border:1px solid #ddd;}
+		</style>
+		<canvas width="500" height="500"></canvas>
+ 		<script async defer>
+			var el=document.querySelector('canvas');
+			el.getContext?canvas=el.getContext('2d'):alert('你的浏览器不支持canvas绘图');
+			// var img=new Image();
+			// img.src="../images/T_logo.jpg";
+			// img.onload=function(){
+			// 	canvas.drawImage(img,10,10,500,500);
+			// }
+			canvas.fillStyle="#ff0";
+			canvas.fillRect(10,10,300,200);
+
+			el.onclick=function(e){
+				// 鼠标位置
+				var offset_x=parseInt(e.offsetX),offset_y=parseInt(e.offsetY);
+				console.log(offset_x,offset_y);
+				// 获取像素点
+				var imgData=canvas.getImageData(offset_x,offset_y,100,100);
+				console.log(imgData);
+				// var rgba = "rgba("+ imgData.data[0] +","+ imgData.data[1] +","+ imgData.data[2] +","+ imgData.data[3] +")";
+				// console.log(rgba);
+				canvas.putImageData(imgData,10,70);
+			}
+			//注意：getImageData()方法对于img图像会报错
+		</script>
+
+	</body>
+</html>

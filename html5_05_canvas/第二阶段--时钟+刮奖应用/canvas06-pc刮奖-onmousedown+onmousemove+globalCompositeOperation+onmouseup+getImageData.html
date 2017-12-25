@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>canvas06-pc-onmousedown+onmousemove+globalCompositeOperation+onmouseup+getImageData</title>
+</head>
+<body>
+	<style>
+		.box{width:100%;height:100%;position:relative;}
+		.box>span{display:block;text-align:center;
+			position:absolute;top:45%;left:30%;font:5rem "黑体";z-index:-1;}
+		canvas{border:1px solid #ddd;}
+	</style>
+	<div class="box">
+		<span id="text"></span>
+		<canvas width='2000' height='500'><canvas>
+	</div>
+
+	<script async defer>
+		// 设置中奖几率为40%-----randomText>6】
+		(function(randomText){
+			var elText=document.querySelector('#text');
+			randomText>6?elText.innerHTML="恭喜您！中1元奖了。":elText.innerHTML="谢谢！你要加油啦。";
+		})(parseInt(Math.random()*10))
+		
+		// 绘制
+		var el=document.querySelector('canvas'),canvas,w=el.width,h=el.height;
+		el.getContext?canvas=el.getContext('2d'):alert('您的浏览器不支持canvas绘图');
+		// 绘制灰色矩形
+		canvas.fillStyle="#ddd";
+		canvas.fillRect(0,0,w,h);
+		// 鼠标按下后的操作
+		el.onmousedown=function(e){
+			// console.log(e.button);
+			el.onmousemove=function(ev){ //鼠标移动事件
+				var ev=ev||window.event;
+				var x=ev.offsetX,y=ev.offsetY;
+				// destination-out	在源图像外显示目标图像。只有源图像外的目标图像部分会被显示，源图像是透明的
+				canvas.globalCompositeOperation="destination-out";
+				// console.log(x+"-"+y);
+				canvas.beginPath();
+				canvas.fillStyle="#f00";
+				canvas.arc(x,y,50,0,Math.PI*2,false);
+				canvas.fill();
+
+				// getImageData() 复制画布上指定矩形的像素数据
+				var imgData = canvas.getImageData(0,0,w,h);
+				var data = imgData.data;
+				var count = 0;
+				//找到所有透明度为0的个数
+				for(var i = 0; i < data.length; i+=4){
+					if(data[i+3] == 0){
+						count++;
+					}
+				}
+				//判断是否大于50%
+				if(count*3 > data.length/4){
+					el.style.opacity = "0";
+				}
+			}
+			el.onmouseup=function(){// 鼠标按下弹起后的操作
+						el.onmousemove=el.onmouseup=null;
+			}
+		}
+		
+	</script>
+</body>
+</html>
