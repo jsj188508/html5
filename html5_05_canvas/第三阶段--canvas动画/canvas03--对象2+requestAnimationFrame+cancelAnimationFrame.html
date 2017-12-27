@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>canvas--requestAnimationFrames</title>
+</head>
+<body>
+	<style>
+		canvas{border:1px solid #ddd;}
+	</style>
+	<canvas width="500" height="500"></canvas>
+	<script>
+		var el=document.querySelector('canvas'),
+		canvas;
+		el.getContext?canvas=el.getContext('2d'):alert('你的浏览器不支持canvas绘图');
+		var objectAnimat={
+			w:el.width,
+			h:el.height,
+			x:20,
+			y:20,
+			r:20,
+			fillColor:'#f00',
+
+			k:0,
+			b:0,
+			moveX:0,
+			moveY:0,
+			moveFun:'',
+			//绘制
+			arcDrow:function(){
+				canvas.clearRect(0,0,this.w,this.h);
+				canvas.beginPath();
+				canvas.fillStyle=this.fillColor;
+				canvas.arc(this.x,this.y,this.r,0,Math.PI*2,false);
+				canvas.fill();	
+			},
+			//移动
+			moveArc:function(){
+			
+				this.x>this.w-this.r?this.x=20:this.x+=(this.y-this.b)/this.k;
+				this.y>this.h-this.r?this.y=20:this.y+=this.k*this.x+this.b;
+				// // console.log(this.k);
+				// this.x>=this.w-this.r||this.x<=this.r?this.moveX = -this.moveX:this.x+=(this.y-this.b)/this.k;
+				// this.y>=this.h-this.r||this.y<=this.r?this.moveX = -this.moveX:this.y+=this.k*this.x+this.b;
+				this.arcDrow();
+			},
+		}
+		//绘制圆
+		objectAnimat.arcDrow(); 
+		function moveArcFun(){
+			objectAnimat.moveArc();
+			objectAnimat.moveFun=requestAnimationFrame(moveArcFun);
+		}
+		// 点击el改变objectAnimat.moveX和objectAnimat.moveY
+		el.onclick=function(e){
+			objectAnimat.k=(e.offsetY-objectAnimat.y)/(e.offsetX-objectAnimat.x);
+			objectAnimat.b=(e.offsetX*objectAnimat.y-e.offsetY*objectAnimat.x)/(e.offsetX-objectAnimat.x);
+			
+			moveArcFun();
+			// console.log(e.offsetX);
+			// console.log(e.offsetY);
+		}
+
+	</script>
+</body>
+</html>

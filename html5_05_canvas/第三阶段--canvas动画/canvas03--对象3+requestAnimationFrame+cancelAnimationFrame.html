@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>canvas--requestAnimationFrames</title>
+</head>
+<body>
+	<style>
+		canvas{border:1px solid #ddd;}
+	</style>
+	<canvas width="500" height="500"></canvas>
+	<script>
+		var el=document.querySelector('canvas'),
+		canvas;
+		el.getContext?canvas=el.getContext('2d'):alert('你的浏览器不支持canvas绘图');
+		var drowObject={
+			w:el.width,
+			h:el.height,
+			r:0,
+			x:0,
+			y:0,
+			moveX:0,
+			moveY:0,
+			fillColor:function(){
+				this.r=parseInt(Math.random()*21);
+				this.x=parseInt(Math.random()*(this.w+1))-this.r;
+				this.y=parseInt(Math.random()*(this.h+1))-this.r;
+				if(this.x<this.r){this.x=this.r}
+				if(this.y<this.r){this.y=this.r}
+
+				var r=parseInt(Math.random()*(255+1));
+				var g=parseInt(Math.random()*(255+1));
+				var b=parseInt(Math.random()*(255+1));
+				var a=parseInt(Math.random()*11)/10;
+
+				
+				return "rgba("+r+','+g+','+b+','+a+")";
+			},
+			drowArc:function(){
+				
+				canvas.beginPath();
+				canvas.fillStyle=this.fillColor();
+				canvas.arc(this.x,this.y,this.r,0,Math.PI*2,false);
+				canvas.fill();
+			},
+			moveArc:function(){
+				canvas.clearRect(0,0,this.w,this.h);
+				this.x+=this.moveX;
+				this.y+=this.moveY;
+				
+				if(this.x >= this.w-this.r|| this.x <= this.r){
+					this.moveX = -this.moveX;
+				}
+				if(this.y>= this.h-this.r || this.y<= this.r){
+					this.moveY = -this.moveY;
+				}
+				for(var i=0;i<1000;i++){
+					drowObject.drowArc();
+				}
+			}
+		};
+		drowObject.moveArc();
+		
+		function moveFun(){
+			drowObject.moveArc();
+			var move=requestAnimationFrame(moveFun);
+		}
+		el.onclick=function(){
+			moveFun();
+		}
+		
+		
+		// console.log(color);
+	</script>
+</body>
+</html>

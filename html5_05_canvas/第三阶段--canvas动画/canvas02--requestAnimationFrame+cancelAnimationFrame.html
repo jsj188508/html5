@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>canvas--requestAnimationFrames</title>
+</head>
+<body>
+	<style>
+		canvas{border:1px solid #ddd;}
+	</style>
+	<canvas width="500" height="500"></canvas>
+	<script>
+		var el=document.querySelector('canvas'),
+		canvas,
+		w=el.width,
+		h=el.height,
+		x=y=0,
+		moveAnimat;
+		el.getContext?canvas=el.getContext('2d'):alert('你的浏览器不支持canvas绘图');
+		function drowArc(){
+			canvas.beginPath();
+			canvas.fillStyle="#f00";
+			canvas.arc(50+x,50,25,0,Math.PI*2,false);
+			canvas.fill();
+		}
+		drowArc();
+		function move(){
+			canvas.clearRect(0,0,w,h);
+			x++;
+			drowArc();
+			moveAnimat=requestAnimationFrame(move);//启用动画
+		};
+		
+		el.onmouseover=function(){move();}
+
+		el.onmouseout=function(){
+			cancelAnimationFrame(moveAnimat);//停止动画
+		}
+	</script>
+</body>
+</html>
