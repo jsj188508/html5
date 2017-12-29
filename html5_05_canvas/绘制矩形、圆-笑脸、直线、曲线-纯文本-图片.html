@@ -190,12 +190,13 @@
 
 //绘制图片
 		var img=new Image();
+		img.src="canva_img.png";
 		img.onload=function(){
 			canva3.drawImage(img,10,350); //drawImage(img, x, y)
 			canva.drawImage(img, 250, 350, 100,100);//drawImage(img, x, y, width, height)  --------->缩放
 			canva2.drawImage(img,42,45,100,50,400,350,200,200);//drawImage(img,sx,sy,swidth,sheight,x,y,width,height); ---->切片
 		};
-		img.src="canva_img.png";
+		
 		
 
 	}else{

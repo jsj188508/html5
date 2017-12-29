@@ -1,0 +1,55 @@
+<!doctype html>
+<HTML>
+	<head>
+		<meta charset="utf-8">
+		<title>isPointInPath():
+		方法:如果指定的点位于当前路径中,返回 true；否则返回false。
+		该方法只针对路径绘制的路径有效，比如arc绘制的圆形，但是fill不能用，他不是通过路径绘制的
+		//注意2：判断成立条件，只对当前的ctx(路径)有效</title>
+	</head>
+	<body>
+		<style>
+			canvas{border:1px solid #ddd;}
+		</style>
+		<canvas width="500" height="500"></canvas>
+		<script>
+			var el=document.querySelector('canvas'),canvas;
+			el.getContext?canvas=el.getContext('2d'):alert('你的浏览器不支持canvas绘图');
+			//绘制圆形路径
+			canvas.save();
+			canvas.arc(50,50,30,0,Math.PI*2,false);
+			canvas.fillStyle="#ff0";
+			canvas.fill();
+			// canvas.restore();
+
+			//使用让rect 绘制矩形路径
+			// 注意:canvas.beginPath()会对canvas.isPointInPath(x,y)的判断有影响，绘制的第一个路径区的x,y域就判断不了
+			canvas.beginPath();
+			canvas.save();
+			canvas.fillStyle="#f00";
+			canvas.rect(100,10,150,100);
+			canvas.fill();
+			// canvas.restore();
+
+			//使用让fillRect 绘制矩形形状
+			canvas.fillStyle="#0f0";
+			canvas.fillRect(260,10,150,100);
+			
+			el.onclick=function(e){
+				var x=e.offsetX,y=e.offsetY;
+				// console.log(canvas.isPointInPath(x,y)&&(20<x<80||20<y<80));	
+				if(canvas.isPointInPath(x,y)){		
+					console.log(x);
+					console.log(y);
+					console.log((20<x)&&(x<80));
+					console.log((20<y)&&(y<80));
+					console.log(20<x&&x<80||20<y&&y<80);
+					if((20<x)&&(x<80)&&(20<y)&&(y<80)){alert('你点击了圆');}
+					else if(100<x<250&&10<y<160){alert('你点击了矩形路径');}
+				    else if(260<x<310||10<y<160){alert('使用fillRect绘制的矩形就点不了');}
+				}
+			}
+
+		</script>
+	</body>
+</HTML>
