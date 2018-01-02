@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>游戏布局</title>
+	<meta charset="utf-8">
+
+</head>
+<body>
+	<style>
+		*{padding:0;margin:0;text-decoration:none;outline:none;border:0;box-sizing:border-box;}
+		#wrap{position:relative;}
+		#wrap>div.score{position:absolute;top:10px;left:10px;}
+		#lose{position:absolute;top:50%;left:50%;text-align: center;opacity:0;z-index:-1;}
+		#again{background:#E3493c;padding:5px 10px;border-radius:5px;margin-top:10px;display:inline-block;color:#fff;cursor:pointer;}
+		#again:hover{opacity:0.5;}
+		canvas{border:1px solid #ddd;min-width:320px;min-height:568px;
+			position:fixed;z-index:-1;}
+	</style>
+	<div id="wrap">
+		<!-- 分数 -->
+		<div class="score">当前分数:<span id="scores">0</span></div>
+		<canvas tabindex="0"></canvas>
+<!-- // HTML5 Canvas本身不支持键盘事件监听与获取，常用的有两种方法来解决这个问题：
+		// 一：通过windows对象来实现Canvas键盘事件监听与处理
+				// window.addEventListener('keydown',function keydown(){
+				// 	console.log(el);
+				// },true);
+		//二：通过在Canvas对象上添加其它支持键盘事件的DOM元素实现键盘事件支持
+				// <canvas id="event_canvas"tabindex="0"></canvas>
+				// canvas.addEventListener('keydown', doKeyDown,true);
+				// 其中tabindex为HTML5 DOM元素，支持键盘事件。 -->
+		<dl id="lose">
+			<h3>游戏结束</h3>
+			<dd>总得分：<span id="scoreEnd">0</span></dd>
+			<dd><a id="again">再玩一次</a></dd>
+		</dl>
+	</div>
+	
+
+	<script>
+		(function(){
+			var el=document.querySelector('canvas'),
+				canvas,
+				score=document.querySelector('#scores')
+				again=document.querySelector('#again');
+			el.getContext?canvas=el.getContext('2d'):alert('你的浏览器版本太低，请使用高版本的浏览器');
+			el.width=parseInt(document.body.clientWidth);
+			// el.width=parseInt(window.innerWidth);
+			el.height=parseInt(window.innerHeight);
+			var bgImg=new Image();
+				bgImg.src='img/background.png';
+
+			var bgImgObject={
+				x:0,
+				y:0,
+				w:el.width,
+				h:el.height,
+				//绘制方法
+				drowBgImg:function(){
+					canvas.clearRect(0,0,el.width,el.height);
+					canvas.drawImage(bgImg,this.x,this.y,this.w,this.h);
+					canvas.drawImage(bgImg,this.x,this.y-this.h,this.w,this.h);
+				},
+				moveBgImg:function(){
+					this.y>=el.height?this.y=0:this.y+=2;
+					this.drowBgImg()
+				}
+			};
+			var heroImg=new Image();
+				heroImg.src="img/herofly.png";
+			var heroObject={
+				x:el.width/2-33,
+				y:el.height-50-82,
+				w:66,
+				h:82,
+				drowHero:function(){
+				//9个参数：当中5个 控制裁切  最后四个：显示坐标和位置
+				// drawImage(img,sx,sy,swidth,sheight,x,y,width,height); ---->切片
+					canvas.drawImage(heroImg,0,0,this.w,this.h,this.x,this.y,this.w,this.h);
+				},
+				moveHero:function(){
+
+					heroObject.drowHero();
+				}
+
+
+			}
+			//回调动画
+			function animate(){
+				bgImgObject.moveBgImg();
+				heroObject.drowHero();
+				window.requestAnimationFrame(animate);
+			}
+			animate();
+			el.onkeydown=function(e){
+				console.log(e);
+				console.log(e.keyCode);
+			}
+		
+
+
+		})()	
+	</script>
+</body>
+</html>
