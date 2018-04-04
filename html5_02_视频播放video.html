@@ -15,17 +15,17 @@
 	  <button id="makeSmall">缩小</button>
 	  <button id="makeNormal">正常</button>
 		<br>
-  <video id="video1" width="420" controls="controls" loop  autoplay muted="true" preload="auto"> 
-														  	<!-- 显示控制器
-															使用autoplay，则忽略preload属性
+<!-- 显示控制器
+	使用autoplay，则忽略preload属性
 
-															loop是循环播放
-															muted=“true”规定视频的音频输出应该被静音。
-															poster="规定视频下载时显示的图像，或者在用户点击播放按钮前显示的图片路径"
-															preload="auto"视频在页面加载时进行加载，并预备播放 -->
+	loop是循环播放
+	muted=“true”规定视频的音频输出应该被静音。
+	poster="规定视频下载时显示的图像，或者在用户点击播放按钮前显示的图片路径"
+	preload="auto"视频在页面加载时进行加载，并预备播放 -->
+  <video id="video1" width="420" controls="controls" loop  autoplay muted="true" preload="auto" poster="./img/video.png"> 
   		<source src="movie.ogg" type="video/ogg" >
 		<source src="movie.mp4" type="video/mp4" />
-    	Your browser does not support HTML5 video.
+    	你的浏览器不支持video标签
   </video>
 </div> 
 
