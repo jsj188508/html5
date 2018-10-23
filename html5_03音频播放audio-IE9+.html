@@ -13,11 +13,12 @@
 	  <button id="playPause">播放/暂停</button> 
 		<br>
   <audio id="audio1" controls="controls" loop  autoplay muted preload="auto"> 
-									<!-- 显示控制器 controls="controls"
-									使用autoplay，则忽略preload属性
-									loop是循环播放
-									muted=“true”规定音频的音频输出应该被静音。
-									preload="auto"音频在页面加载时进行加载，并预备播放 -->
+	<!-- 显示控制器 controls="controls"
+	使用autoplay，则忽略preload属性
+	loop是循环播放
+	volum:音量，值在0-1之间；
+	muted=“true”规定音频的音频输出应该被静音。
+	preload="auto"音频在页面加载时进行预加载，默认是auto(预加载整个音频)并预备播放，none->不预加载，metadata->只加载音频的元数据-->
   		<source src="movie.ogg" type="audio/ogg" >
 		<source src="song.mp3" type="audio/mp3" />
     	Your browser does not support HTML5 audio.
