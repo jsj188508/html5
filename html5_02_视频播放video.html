@@ -22,11 +22,15 @@
 	muted=“true”规定视频的音频输出应该被静音。
 	poster="规定视频下载时显示的图像，或者在用户点击播放按钮前显示的图片路径"
 	preload="auto"视频在页面加载时进行加载，并预备播放 -->
-  <video id="video1" width="420" controls="controls" loop  autoplay muted="true" preload="auto" poster="./img/video.png"> 
-  		<source src="movie.ogg" type="video/ogg" >
-		<source src="movie.mp4" type="video/mp4" />
-    	你的浏览器不支持video标签
-  </video>
+	  <video id="video1" width="420" controls="controls" loop  autoplay muted="true" preload="auto" poster="./img/video.png"> 
+		<!-- 视频从第5s开始播放--> <!-- 在js中可以使用 video.currentTime= 5属性来控制开始播放的位置--> 
+		<source src="movie.ogg#t=5" type="video/ogg" >
+		<!-- 视频从第5s开始播放，到15s结束播放-->
+		<source src="movie.mp4#t=5,15" type="video/mp4" />
+		<!-- 视频从开始播放，到15s结束播放-->
+		<source src="movie.mp4#t=,15" type="video/mp4" />
+		你的浏览器不支持video标签
+	  </video>
 </div> 
 
 <script type="text/javascript">
