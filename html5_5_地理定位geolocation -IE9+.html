@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ZH">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>navigator.geolocation -IE9+ ->地理定位</title>
+</head>
+<body>
+    <script>
+       function success(position){
+            console.log('成功获取位置：',position.coords,'时间搓'+position.timeStamp);
+        };
+        function error(positionError){
+            console.log('调用失败',positionError.code,positionError.message);
+            //3 Timeout（ 3 ） expired 请求超时
+            //Position-unavailable(2):获取用户位置信息失败
+            // 1 User denied Geolocation :用户拒绝分享位置
+            //unknown_error(0):其他类型的错误
+        };
+        var options={
+            timeout:30000,
+            maximumAge:0, //用户位置信息缓存的最长时间 单位是ms
+            enableHighAccuracy:false, //默认为false 开启会增加响应时间
+
+        }
+
+        //调用navigator.geolocation.getCurrentPosition方法获取地理位置
+       navigator.geolocation.getCurrentPosition(success,error,options);
+       if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(success,error,options);
+       }else{
+        alert('你的浏览器不支持navigator.geolocation')
+       }
+        //监听用户的位置是否发生改变
+        var watchId=navigator.geolocation.watchPosition(success,error,options);
+        //清除监听器
+        navigator.geolocation.clearWatch(watchId);
+    </script>
+</body>
