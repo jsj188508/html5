@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!-- 使用html标签的manifest manifest (IE10+) 属性将appcache离线缓存的描述文件关联起来即可。之后浏览器会自动下载appcache文件，
+	并进行解析和执行appcache文件中定命令，对描述的文件进行缓存处理-->
+
+<!-- 即便没有网络也能正常使用，会导致用户在离线状态下产生的数据无法正常保存 
+	———— 解决这一问题就是做本地数据的存储  -->
+<html lang="en" manifest="demo.appcache">
+
+<head>
+    <meta charset="UTF-8">
+    <title>manifest 关联 appcache 描述文件 IE10+</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+
+<body>
+    <h2>随手日记</h2>
+    <textarea id="content" cols="120" rows="10"></textarea>
+    <script src="index.js"></script>
+</body>
+
+</html>
