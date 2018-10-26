@@ -11,17 +11,19 @@
 <body>
     方向事件：deviceorientation 在设备方向发生改变时触发;调用如下：window.addEventListener('deviceorientation',orientationHandler,true) ；
     <br> orientationHandler回掉函数会在注册后定时调用，并得到一个DeviceOrientationEvent类型的参数,其包含的属性如下：
-    <br>gamma
-    <br>alpha
-    <br>beat
+    <br>gamma:设备在Gamma方向上旋转的角度，范围是：-90 ~ 90  deg
+    <br>alpha:设备在Alpha方向上旋转的角度,范围是： 0 ~ 360   deg
+    <br>beat：设备在Beat 方向上旋转的角度，范围是：-180 ~ 180 deg
+    
     <br>移动事件：devicemotion 在设备的位置发生改变时被触发；
     <br>调用如下：window.addEventListener('devicemotion',motionHandler,false);
     <br>motionHandler回调函数会在注册后定时调用，并得到一个DeviceMotionEvent类型的参数，其包含的属性如下：
-    <br>acceleration
-    <br>accelerationIncludingGravity
-    <br>rotationRate
-    <br>interval
-    <br>示例：
+    <br>acceleration                 ：设备在X、Y、Z三个轴方向上移动的距离，减去重力加速度
+    <br>accelerationIncludingGravity ：设备在X、Y、Z三个轴方向上移动的距离，包含重力加速度
+    <br>rotationRate                 ：设备在Alpha、Beat、Gamma三个方向旋转的角度
+    <br>interval                     ：从设备中获取数据的频率,单位是毫秒
+    
+    <br>触发 DeviceMotionEvent 示例：
     <div>摇一摇你的手机</div>
     <script>
         var SHAKE = 300, //定义摇动的速度
