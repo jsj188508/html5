@@ -1,9 +1,14 @@
-CACHE MANIFEST  //声明这是个离线应用描述文件
+CACHE MANIFEST  //是必需的：声明这是个离线应用描述文件
+
 #cache //命令之后的文件会被缓存
 CACHE:
 index.html
 style.css
 index.js
+
 #network //命令之后的文件不会被缓存
 NETWORK:
 account/
+
+#FALLBACK 当断网后404.html将代替/html5/中的文件
+/html5/ /404.html
