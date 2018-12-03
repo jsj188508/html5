@@ -9,6 +9,13 @@
 每个指定了 manifest 的页面在用户对其访问时都会被缓存。如果未指定 manifest 属性，则页面不会被缓存（除非在 manifest 文件中直接指定了该页面）。
 manifest 文件的建议的文件扩展名是：".appcache"。
 请注意，manifest 文件需要配置正确的 MIME-type，即 "text/cache-manifest"。必须在 web 服务器上进行配置。
+
+百度搜索： 在web服务器中如何配置manifest 文件的MIME-type属性为：text/cache-manifest
+
+一、 <?php header("content-type: text/cache-manifest"); ?>
+二、在 web 服务器中配置正确的  MIME-type 即 text/cache-manifest
+　　以Apache为例： 在 .htaccess 文件中写入以此规则:    
+    AddType text/cache-manifest appcache
  -->
 <html lang="en" manifest="demo.appcache">
 
