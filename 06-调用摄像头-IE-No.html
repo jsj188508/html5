@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ZH">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>navigator.mediaDevices 调用摄像头</title>
+</head>
+
+<body>
+    <!-- 使用video来显示媒体的视频流 -->
+    <video id="video" autoplay style="width:480px;height:320px"></video>
+    <p><button id="capture">拍照</button></p>
+    <canvas id="canvas" width="480" height="320"></canvas>
+    <script>
+        var video = document.getElementById('video'),
+            btn = document.getElementById('capture'),
+            canvas = document.getElementById('canvas'),
+            context = canvas.getContext('2d');
+
+        function getUserMedia(constraints, success, error) {
+            if (navigator.mediaDevices.getUserMedia) { //新版
+                navigator.mediaDevices.getUserMedia(constraints).then(success).catch(error);
+            } else if (navigator.webkitGetUserMedia) { //webkit核心的浏览器
+                navigator.webkitGetUserMedia(constraints, success, error);
+            } else if (navigator.mozGetUserMedia) { //火狐浏览器
+                navigator.mozGetUserMedia(constraints, success, error);
+            } else if (navigator.getUserMedia) { //旧版的
+                navigator.getUserMedia(constraints, success, error);
+            }
+        }
+
+        function success(stream) {
+            //兼容webkit核心浏览器
+            var compatiableUrl = window.URL || window.webkitURL;
+            //设置video的视频流
+            video.src = compatiableUrl.createObjectURL(stream);
+            video.play();
+            console.log('走进succee方法', stream);
+        };
+
+        function error(err) {
+            console.log('走进error方法:调用媒体设备失败', err.name, err.message);
+        };
+        //判断浏览器的兼容性
+        if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
+            //调用用户媒体设备
+            getUserMedia({
+                // 定义视频的分辨率;
+                video: {
+                    width: 480,
+                    height: 320
+                }
+            }, success, error);
+        } else {
+            alert('你的浏览器不支持navigator.mediaDevices.getUserMedia')
+        }
+        //绑定监听事件
+        btn.onclick = function() {
+            //截图
+            context.drawImage(video, 0, 0, 480, 320);
+        }
+    </script>
+</body>
