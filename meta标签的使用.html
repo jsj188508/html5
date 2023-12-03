@@ -1,26 +1,107 @@
-====>文件为html类型
+
 <!DOCTYPE html>  
-====>html语言为英文
+====>文件为html类型
+
 <html lang="en">
+====>html语言为英文
 <title>深圳人才引进入户申报中心</title>
-====>页面文件在浏览器中打开后的标签图标
+====>页面文件在浏览器中打开后的标签title
 <link rel="shortcut icon icon" href="imt ttype ages/T_logo.jpg" type="type=" image/* " sizes="36*36">  //图标字体
+====>页面文件在浏览器中打开后的标签图标
+
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=[5 | 7 | 8 | edge | EmulateIE7 | EmulateIE9],[chrome=1]">
+====>指定浏览器按某种方式渲染,注意兼容模式的meta要放到其他meta之前。
+
+<meta charset="utf-8"/>  
 ====>编码格式
-<meta charset="utf-8" />  
-====>页面关键词
+————————————————————————————————————————————————————————————————————————————————————————————————
+<!-- HTTP 1.1 -->
+<meta charset="pragma" content="no-cache"/>  // 不缓存页面信息。
+<!-- HTTP 1.0 -->
+response.addHeader( "Cache-Control", "no-cache" );// 浏览器和缓存服务器都不应该缓存页面信息
+<meta charset="Cache-Control" content="no-cache"/> // Cache-Control指定请求和响应遵循的缓存机制。
+<meta http-equiv="expires" content="Thu, 30 Nov 2017 11:17:26 GMT">// 可以用于设定网页的到期时间。一旦网页过期，必须到服务器上重新传输。
+在请求消息或响应消息中设置Cache-Control并不会修改另一个消息处理过程中的缓存处理过程。
+请求时的缓存指令包括:no-cache、no-store、max-age、max-stale、min-fresh、only-if-cached。
+响应消息中的指令包括:private(默认值)、public、no-cache、no-store、no-transform、must-revalidate、proxy-revalidate、max-age。
+各个消息中的指令含义如下
+private：指示对于单个用户的整个或部分响应消息，不能被共享缓存处理。
+public：指示响应可被任何缓存区缓存
+这允许服务器仅仅描述当用户的部分响应消息，此响应消息对于其他用户的请求无效
+no-cache：指示请求或响应消息不能缓存
+no-store：用于防止重要的信息被无意的发布。在请求消息中发送将使得请求和响应消息都不使用缓存。
+max-age：指示客户机可以接收生存期不大于指定时间（以秒为单位）的响应  Cache-control: max-age=5，是服务器给设置的缓存时间
+min-fresh：指示客户机可以接收响应时间小于当前时间加上指定时间的响应
+
+Refresh(刷新)
+说明：自动刷新并指向新页面。
+一秒刷新页面一次 response.setHeader("refresh","1");
+二秒跳到其他页面 response.setHeader("refresh","2;URL=otherPagename");
+
+效果同下：
+<meta http-equiv="refresh" content="5;url=http://www.w3school.com.cn" />
+————————————————————————————————————————————————————————————————————————————————————————————————
+<meta http-equiv="Window-target"content="_top"> 
+====>强制页面在当前窗口中以独立页面显示，可以防止自己的网页被别人当作一个frame页调用。
+<meta http-equiv=set-cookie content="testcookie" />
+====>如果网页过期，那么存盘的cookie将被删除。
 <meta name="keywords" content="深圳学历提升，远程授课，深圳自考培训学校，电大成人高考远程授课 ">   
-====>页面描述
+====>页面关键词
 <meta name="description" content="深圳百慧通,深圳市百慧通，主考院校教授级师资,1年协议过关取名校学历,通过率连续3年领跑,咨询报名:0755-8860-1039 "> 
+====>页面描述
+
 <meta content="yes" name="apple-mobile-web-app-capable">
 <meta content="black" name="apple-mobile-web-app-status-bar-style">
 <meta content="telephone=no " name="format-detection">
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+TML5中Meta的Viewport的出现了！Viewport的出现让我们开发出来的应用或页面在不同大小的设备上都能统一友好显示！
+viewport 语法介绍：
+<meta name="viewport"
+  content="
+    width = [pixel_value | device-width ] ,
+    height = [pixel_value | device-height] ,
+    initial-scale = float_value ,
+    minimum-scale = float_value ,
+    maximum-scale = float_value ,
+    user-scalable = [yes | no] ,
+    target-densitydpi = [dpi_value | device-dpi | high-dpi | medium-dpi | low-dpi]
+  "
+/>
+参数解释：
+width——控制 viewport 的大小，可以指定的一个值或者特殊的值，如 device-width 为设备的宽度（单位为缩放为 100% 时的 CSS 的像素）。
+height——和 width 相对应，指定高度
+initial-scale——初始缩放。即页面初始缩放程度。这是一个浮点值，是页面大小的一个乘数。
+    例如，如果你设置初始缩放为“1.0”，那么，web页面在展现的时候就会以target density分辨率的1:1来展现。如果你设置为“2.0”，那么这个页面就会放大为2倍。
+maximum-scale——最大缩放。即允许的最大缩放程度。这也是一个浮点值，用以指出页面大小与屏幕大小相比的最大乘数。
+    例如，如果你将这个值设置为“2.0”，那么这个页面与target size相比，最多能放大2倍。
+user-scalable——用户调整缩放。即用户是否能改变页面缩放程度。如果设置为yes则是允许用户对其进行改变，反之为no。默认值是yes。
+如果你将其设置为no，那么minimum-scale 和 maximum-scale都将被忽略，因为根本不可能缩放。
+所有的缩放值都必须在0.01–10的范围之内。
 
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-====>
-device-width 为设备的宽度（单位为缩放为 100% 时的 CSS 的像素） 
-initial-scale - 初始的缩放比例   minimum-scale - 允许用户缩放到的最小比例   maximum-scale - 允许用户缩放到的最大比例 
-user-scalable - 用户是否可以手动缩放   target-densitydpi=high-dpi,(设置屏幕密度为高频，中频，低频自动缩放)
-<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,target-densitydpi=high-dpi"/> 
+target-densitydpi——一个屏幕像素密度是由屏幕分辨率决定的，通常定义为每英寸点的数量 （dpi）。Android支持三种屏幕像素密度：低像素密度，中像素密度，高像素密度。
+一个低像素密度的屏幕每英寸上的像素点更少，而一个高像素密度的 屏幕每英寸上的像素点更多。Android Browser和WebView默认屏幕为中像素密度。
+下面是 target-densitydpi 属性的取值范围
+dpi_value: 指定一个具体的dpi 值作为target dpi. 这个值的范围必须在70–400之间。
+device-dpi: 使用设备原本的 dpi 作为目标 dp。 不会发生默认缩放。
+high-dpi: 使用hdpi 作为目标 dpi。 中等像素密度和低像素密度设备相应缩小。
+medium-dpi: 使用mdpi作为目标 dpi。 高像素密度设备相应放大， 像素密度设备相应缩小。 这是默认的target density.
+low-dpi: 使用mdpi作为目标 dpi。中等像素密度和高像素密度设备相应放大。
+
+<!– html document –>
+ <meta name=”viewport"content=”target-densitydpi=device-dpi"/>
+ <meta name=”viewport"content=”target-densitydpi=high-dpi"/>
+ <meta name=”viewport"content=”target-densitydpi=medium-dpi"/>
+ <meta name=”viewport"content=”target-densitydpi=low-dpi"/>
+ <meta name=”viewport"content=”target-densitydpi=200"/>
+
+例：1.设置屏幕宽度为设备宽度，禁止用户手动调整缩放
+<meta name=”viewport"content=”width=device-width,user-scalable=no"/>
+例:2.设置屏幕密度为高频，中频，低频自动缩放，禁止用户手动调整缩放
+<meta name=”viewport"content=”width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,target-densitydpi=high-dpi”/>
+
 工作中遇到这样的一个问题：当用户获取弹框的 input 焦点时， 在Android手机的浏览器是正常的，可是在苹果手机上的浏览器中就会自动放大整个网页; 
 解决的方法就是，当用户获取焦点后就设置user-scalable=no,当用户失去焦点后user-scalable=yes; 
 具体的viewport解释看下面===========> 原文：http://www.php100.com/html/webkaifa/HTML5/2012/0831/10979.html
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+</head>
